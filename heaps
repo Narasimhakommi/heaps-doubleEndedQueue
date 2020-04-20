@@ -1,0 +1,109 @@
+//heap is also known as priority queue
+//min heap
+import java.util.*;
+class Heap
+{
+  ArrayList<Integer> data=new ArrayList<>();
+  public void add(int item)
+  {
+  	data.add(item);
+    upHeapify(data.size()-1);
+  }
+  public void upHeapify(int ci)
+  {
+
+    int pi=(ci-1)/2;
+    if(data.get(pi)>data.get(ci))
+    {
+    	swap(ci,pi);
+    	upHeapify(pi);
+    }
+  }
+  public void swap(int i,int j)
+  {
+  	int ith=data.get(i);
+  	int jth=data.get(j);
+  	data.set(i,jth);
+  	data.set(j,ith);
+  }
+  public void display()
+  {
+  	System.out.println(data);
+  }
+  public int size()
+  {
+  	return data.size();
+  }
+  public boolean isEmpty()
+  {
+  	return this.size()==0;
+  }
+
+  public int remove()
+  {
+  	 swap(0,this.data.size()-1);
+  	 int rv=this.data.remove(this.data.size()-1);
+     downHeapify(0);
+  	 return rv;
+  }
+  public void downHeapify(int pi)
+  {
+  	int lci=2*pi+1;
+  	int rci=2*pi+2;
+
+  	int mini=pi;
+
+  	if(lci<this.data.size() && this.data.get(lci)<this.data.get(mini))
+  	{
+  		mini=lci;
+  	}
+
+    if(rci<this.data.size() && this.data.get(rci)<this.data.get(mini))
+  	{
+  		mini=rci;
+  	}
+
+  	if(mini!=pi)
+  	{
+       swap(mini,pi);
+       downHeapify(mini);
+  	}
+
+  }
+  //used to get high priority element
+  public int get()
+  {
+     return this.data.get(0);
+  }
+}
+class Kommi
+{
+  public static void main(String args[])
+  {
+  	Heap heap=new Heap();
+  	heap.add(10);
+  	heap.display();
+  	heap.add(20);
+  	heap.display();
+  	heap.add(30);
+  	heap.display();
+  	heap.add(40);
+  	heap.display();
+  	heap.add(5);
+  	heap.display();
+  	heap.add(3);
+  	heap.display();
+
+
+  	System.out.println(heap.remove());
+  	heap.display();
+  	System.out.println(heap.remove());
+  	heap.display();
+  	System.out.println(heap.remove());
+  	heap.display();
+
+  	System.out.println(heap.remove());
+  	heap.display();
+
+  }
+}
